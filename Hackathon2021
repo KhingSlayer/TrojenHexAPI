@@ -1,0 +1,38 @@
+// Include Telegraf module
+const Telegraf = require('telegraf'); 
+
+// Create a bot using TOKEN provided as environment variable
+const bot = new Telegraf('1919956579:AAFFSsAUd94gOs_j_Cdd-C8RVv6PcyMY9SE');
+
+// Include a Starting Point for the bot
+bot.use((ctx) => {
+    ctx.reply("hi")
+})
+
+
+bot.help((ctx) => {
+    ctx.reply("This bot can perfrom the following commands\n - /start\n - /help")
+
+})
+
+//Redirecting the bot to a url for covid information around the world 
+bot.command('covid', (ctx)=>{
+    ctx.telegram.sendMessage(ctx.chat.id, '<b>COIVD</b> stats',
+    {
+        reply_markup: {
+            inline_keyboard: [
+                [{text: "click me", url: "https://covid19.who.int/"}]
+            ]
+        }
+    })
+})
+
+
+bot.action('go-back', (ctx)=> {
+    ctx.deleteMessage()
+})
+
+
+
+
+bot.launch()
